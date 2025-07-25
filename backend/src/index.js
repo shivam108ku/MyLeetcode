@@ -24,16 +24,21 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 const videoRouter = require('./routes/videoCreator');
 const aiRouter = require('./routes/aiRoutes');
+ const allowedOrigins = [
+  "https://getsmartcode.site",     // production
+  "http://localhost:5173"          // local frontend (Vite)
+];
+
 const io = new Server(server, {
   cors: {
-    origin: "https://getsmartcode.site",
+    origin: allowedOrigins,
     credentials: true,
   },
 });
 
 // Middleware
 app.use(cors({
-  origin: "https://getsmartcode.site",
+  origin: allowedOrigins,
   credentials: true,
 }));
 app.use(express.json());
